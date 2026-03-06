@@ -15,65 +15,113 @@
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: #b058d6;
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: #e4adfc;
 }
 
 body {
   margin: 0;
-  display: flex;
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
 }
 
 h1 {
-  font-size: 3.2em;
+  font-size: 2.2em;
   line-height: 1.1;
 }
 
-button {
+button, .input {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
+  margin: 0;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: #312735;
   cursor: pointer;
   transition: border-color 0.25s;
 }
-button:hover {
-  border-color: #646cff;
+button:hover, .input:hover {
+  border-color: #bb71db;
 }
 button:focus,
-button:focus-visible {
+button:focus-visible,
+.input:focus, 
+.input:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-.card {
-  padding: 2em;
+input, textarea{
+    background-color: transparent;
+    border-color: transparent;
+}
+input:hover, input:active, input:focus, input:focus-visible,
+textarea:hover, textarea:active, textarea:focus, textarea:focus-visible{
+    border-color: transparent;
+    outline: none;
+}
+textarea{
+  resize: none;
+  width: 100%;
+}
+
+small, input::placeholder {
+    color: rgb(186, 186, 186);
+}
+.big {
+  font-size: larger;
 }
 
 #app {
   max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
+  width: 100%;
+  min-height: 100vh;
+  margin-right: 10px;
+  margin-left: 10px;
+  padding: 0;
   text-align: center;
+}
+
+.box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.glass{
+    border: 2px solid #3e2947;
+    border-radius: 8px;
+    padding: 2% 0;
+    justify-content: space-around;
+    align-items: center;
+    padding-top: 5%;
+}
+
+span[role="alert"]{
+    color:rgb(189, 87, 87);
+    font-size: small;
 }
 
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
     background-color: #f9f9f9;
+  }
+
+  a:hover {
+    color: #7f4697;
+  }
+
+  button, .input {
+    background-color: #b19fbd;
+  }
+
+  small, input::placeholder {
+    color: rgb(86, 85, 85);
   }
 }
