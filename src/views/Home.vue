@@ -4,7 +4,7 @@ import Card from '../components/Card.vue'
 
 const prop = defineProps({
   data: { type: Array, required: true },
-  products: { type: Array, required: true },
+  filteredProducts: { type: Array, required: true },
   cart: { type: Array },
 });
 defineEmits(['inc', 'newProduct']);
@@ -29,7 +29,7 @@ const auth = localStorage.auth;
   <RouterLink :to="{name: 'newProduct', params: {idProduct: lastId}}" v-if="auth === 'admin'">
     <button style="width: 95%;">Добавить новый товар</button>
   </RouterLink>
-  <div v-if="products.length === 0">
+  <div v-if="filteredProducts.length === 0">
     <div>
       <div class="big">Товары по запросу не найдены.</div>
       <br>
@@ -46,7 +46,7 @@ const auth = localStorage.auth;
     </div>
   </div>
   <div class="box" v-else>
-    <Card v-for="product in products" 
+    <Card v-for="product in filteredProducts" 
           :key="product.id" 
           :product="product"
           :countInCart = "checkInCart(product.id)"
