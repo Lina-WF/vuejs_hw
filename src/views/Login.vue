@@ -2,14 +2,17 @@
 import { useRouter } from 'vue-router';
 import LoginForm from '../components/forms/LoginForm.vue';
 import { ref } from 'vue';
+import { useUserStore } from '../stores/user';
 
 const error = ref(false);
 const router = useRouter();
+const userStore = useUserStore();
 
 function checkAuth(data){
-    if (data.login === "admin" && data.password === "123"){
-        localStorage.auth = "admin";
-        router.go(0);
+    if (data.login === userStore.user.login && data.password === userStore.user.password){
+        userStore.$subscribe((mutation, state) => localStorage.setItem('user', JSON.stringify(state)));
+        userStore.logIn();
+        router.push("/newProduct")
     }
     else {
         error.value = true;

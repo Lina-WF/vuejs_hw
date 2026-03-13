@@ -1,35 +1,28 @@
 <script setup>
-import { computed} from 'vue'
 import Card from '../components/Card.vue'
+import { useProductsStore } from '../stores/products';
+import { useFilterStore } from '../stores/filter';
+import { storeToRefs } from 'pinia';
+import { useUserStore } from '../stores/user';
+import { computed } from 'vue';
 
-const prop = defineProps({
-  data: { type: Array, required: true },
-  filteredProducts: { type: Array, required: true },
-  cart: { type: Array },
-});
-defineEmits(['inc', 'newProduct']);
+const productStore = useProductsStore();
+const { data, isLoading } = storeToRefs(productStore);
 
-function checkInCart(id){
-  const productObj = prop.cart.find(product => (product.id === id));
-  if (productObj)
-  {
-    return productObj.countInCart;
-  }
-  else {
-    return 0;
-  }
-}
-const lastId = computed(() => prop.data.length ? prop.data.at(-1).id : 0);
+const filterStore = useFilterStore();
+const { filteredProducts } = storeToRefs(filterStore);
 
-const auth = localStorage.auth;
+const userStore = useUserStore();
+const auth = computed(() => userStore.user.loggedIn);
 </script>
 
 <template>
 <h1>Магазин</h1>
-  <RouterLink :to="{name: 'newProduct', params: {idProduct: lastId}}" v-if="auth === 'admin'">
+  <RouterLink :to="{name: 'newProduct'}" v-if="auth">
     <button style="width: 95%;">Добавить новый товар</button>
   </RouterLink>
-  <div v-if="filteredProducts.length === 0">
+  <div v-if="isLoading">Загрузка...</div>
+  <div v-else-if="filteredProducts.length === 0">
     <div>
       <div class="big">Товары по запросу не найдены.</div>
       <br>
@@ -40,8 +33,6 @@ const auth = localStorage.auth;
       <Card v-for="product in data" 
           :key="product.id" 
           :product="product"
-          :countInCart = "checkInCart(product.id)"
-          @inc="(e) => $emit('inc', product.id)"
       />
     </div>
   </div>
@@ -49,8 +40,6 @@ const auth = localStorage.auth;
     <Card v-for="product in filteredProducts" 
           :key="product.id" 
           :product="product"
-          :countInCart = "checkInCart(product.id)"
-          @inc="() => $emit('inc', product.id)"
     />
   </div>
 </template>
