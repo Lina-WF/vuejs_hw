@@ -1,26 +1,17 @@
 <script setup>
 import { ref } from 'vue';
 import AddInCartButton from '../components/AddInCartButton.vue';
+import { useProductsStore } from '../stores/products';
+import { useCartStore } from '../stores/cart';
 
 const prop = defineProps({
   idProduct: String,
-  data: { type: Array },
-  cart: { type: Array },
 });
-defineEmits(['inc', 'clearFilter']);
 
-const productObj = ref(prop.data.find(product => (product.id == prop.idProduct)));
+const productStore = useProductsStore();
+const cartStore = useCartStore();
 
-function checkInCart(id){
-  const productObj = prop.cart.find(product => (product.id == id));
-  if (productObj)
-  {
-    return productObj.countInCart;
-  }
-  else {
-    return 0;
-  }
-}
+const productObj = ref(productStore.findProduct(prop.idProduct));
 </script>
 
 <template>
@@ -53,13 +44,12 @@ function checkInCart(id){
                     </small>
                 </p>
                 <AddInCartButton 
-                    :countInCart="checkInCart(idProduct)" 
-                    @inc="() => $emit('inc', idProduct)" />
+                    :countInCart="cartStore.checkInCart(idProduct)" 
+                    @inc="() => cartStore.incCart(idProduct)" />
             </div>
-            <RouterLink :to="{name:'home'}" @click="$emit('clearFilter')"><button class="back">В каталог</button></RouterLink>
+            <RouterLink :to="{name:'home'}"><button class="back">В каталог</button></RouterLink>
         </div>
     </div>
-    
 </div>
 
 </template>

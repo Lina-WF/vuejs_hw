@@ -1,19 +1,12 @@
 <script setup>
 import BuyForm from '../components/forms/buyForm.vue';
-
-defineProps({
-  cart: { type: Array },
-});
-defineEmits(['bought']);
-
 </script>
 
 <template>
 <div class="box">
     <div class="card">
         <p>Для покупки заполните данные:</p>
-        <BuyForm :cart="cart"
-                @bought="() => $emit('bought')"/>
+        <BuyForm />
     </div>
 </div>
 </template>

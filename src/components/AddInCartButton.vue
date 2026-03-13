@@ -4,8 +4,6 @@ const prop = defineProps({
     countInCart: {type: Number},
 });
 defineEmits(['inc', 'dec']);
-
-
 </script>
 
 <template>
