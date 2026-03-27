@@ -1,12 +1,10 @@
 <script setup>
-import { useRouter } from 'vue-router';
 import { useFilterStore } from '../../stores/filter';
 import { useUserStore } from '../../stores/user';
 import { computed } from 'vue';
 
 const filterStore = useFilterStore();
 const userStore = useUserStore();
-userStore.$subscribe((mutation, state) => localStorage.setItem('user', JSON.stringify(state)));
 
 const auth = computed(() => userStore.user.loggedIn);
 </script>

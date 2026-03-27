@@ -16,16 +16,16 @@ const priceTo = computed(() => filter.value.priceTo);
 <div class="input">
     <input type="text" 
         placeholder="Название"
-        :value="searchTerm" 
+        v-model="searchTerm" 
         @input="filterStore.setFilter('searchTerm', $event.target.value)" />
     <label>от 
         <input type="number" 
-            :value="priceFrom"
+            v-model="priceFrom"
             @input="filterStore.setFilter('priceFrom', $event.target.value)" />
     </label>
     <label>до 
         <input type="number" 
-            :value="priceTo" 
+            v-model="priceTo" 
             @input="filterStore.setFilter('priceTo', $event.target.value)"/>$
     </label>
 </div>
