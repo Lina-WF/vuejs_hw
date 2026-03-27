@@ -10,7 +10,6 @@ const userStore = useUserStore();
 
 function checkAuth(data){
     if (data.login === userStore.user.login && data.password === userStore.user.password){
-        userStore.$subscribe((mutation, state) => localStorage.setItem('user', JSON.stringify(state)));
         userStore.logIn();
         router.push("/newProduct")
     }
@@ -23,7 +22,7 @@ function checkAuth(data){
 <template>
     <div class="box">
         <div class="card">
-            <LoginForm class="glass" @submited="(e) => checkAuth(e)" />
+            <LoginForm class="glass" @submited="checkAuth($event)" />
             <div v-if="error">
                 <span role="alert">Неверный логин или пароль</span>
             </div>

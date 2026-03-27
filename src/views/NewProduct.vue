@@ -17,7 +17,7 @@ function newProduct(product){
 <template>
     <div class="box">
         <div class="card">
-            <NewProductForm @submited="(e) => newProduct(e)"/>
+            <NewProductForm @submited="newProduct($event)"/>
         </div>
     </div>
 </template>

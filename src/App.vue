@@ -4,8 +4,7 @@ import Footer from './components/Footer.vue'
 </script>
 
 <template>
-  <ShopHeader 
-    @search="(e) => filter = e" />
+  <ShopHeader />
   <div class="content">
     <RouterView></RouterView>
   </div>  
