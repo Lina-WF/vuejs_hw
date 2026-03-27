@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref } from 'vue';
+import { ref } from 'vue';
 import { useFilterStore } from '../../stores/filter';
 import { storeToRefs } from 'pinia';
 
@@ -7,9 +7,9 @@ import { storeToRefs } from 'pinia';
 const filterStore = useFilterStore();
 const { filter } = storeToRefs(filterStore);
 
-const searchTerm = computed(() => filter.value.searchTerm);
-const priceFrom = computed(() => filter.value.priceFrom);
-const priceTo = computed(() => filter.value.priceTo);
+const searchTerm = ref(filter.value.searchTerm);
+const priceFrom = ref(filter.value.priceFrom);
+const priceTo = ref(filter.value.priceTo);
 </script>
 
 <template>
