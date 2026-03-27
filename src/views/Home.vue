@@ -1,16 +1,16 @@
 <script setup>
 import Card from '../components/Card.vue'
 import { useProductsStore } from '../stores/products';
-import { useFilterStore } from '../stores/filter';
 import { storeToRefs } from 'pinia';
 import { useUserStore } from '../stores/user';
 import { computed } from 'vue';
+import { useFilteredProductsStore } from '../stores/filteredProducts';
 
 const productStore = useProductsStore();
 const { data, isLoading } = storeToRefs(productStore);
 
-const filterStore = useFilterStore();
-const { filteredProducts } = storeToRefs(filterStore);
+const filteredProductsStore = useFilteredProductsStore();
+const { filteredProducts } = storeToRefs(filteredProductsStore);
 
 const userStore = useUserStore();
 const auth = computed(() => userStore.user.loggedIn);

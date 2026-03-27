@@ -1,20 +1,11 @@
 import { defineStore, storeToRefs } from 'pinia'
-import { computed, ref } from 'vue'
-import { useProductsStore } from './products';
+import { ref } from 'vue'
 
 export const useFilterStore = defineStore('filter', () => {
-    const productStore = useProductsStore();
-    const { data, isLoading } = storeToRefs(productStore);
 
     const filter = ref({'searchTerm': "", 
                     'priceFrom': 0, 
                     'priceTo': 1000000});
-
-    const filteredProducts = computed(() => !isLoading.value ? data.value.filter(product => 
-                    (productStore.checkProductInfo(product.title, filter.value.searchTerm) ||
-                    productStore.checkProductInfo(product.description, filter.value.searchTerm) ||
-                    productStore.checkProductInfo(product.category, filter.value.searchTerm)) &&
-                    productStore.checkProductPrice(product.price, filter.value.priceFrom, filter.value.priceTo)) : []) ;
 
     function clearFilter(){
         filter.value = {'searchTerm': "", 
@@ -36,5 +27,5 @@ export const useFilterStore = defineStore('filter', () => {
         }
     }
 
-    return { filter, filteredProducts, clearFilter, setFilter}
+    return { filter, clearFilter, setFilter}
 })
