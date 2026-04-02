@@ -29,7 +29,8 @@ const auth = localStorage.auth;
   <RouterLink :to="{name: 'newProduct', params: {idProduct: lastId}}" v-if="auth === 'admin'">
     <button style="width: 95%;">Добавить новый товар</button>
   </RouterLink>
-  <div v-if="filteredProducts.length === 0">
+  <div id="loading" v-if="isLoading">Загрузка...</div>
+  <div v-else-if="filteredProducts.length === 0">
     <div>
       <div class="big">Товары по запросу не найдены.</div>
       <br>
