@@ -1,11 +1,14 @@
 <script setup>
 import { Form, Field, ErrorMessage } from 'vee-validate';
 import { computed } from 'vue';
+import { storeToRefs } from 'pinia';
+import { useProductsStore } from '../../stores/products';
 
-const prop = defineProps({lastId: Number});
-const emit = defineEmits(['submited', 'clearFilter']);
+const emit = defineEmits(['submited']);
 
-const id = computed(() => prop.lastId + 1);
+const productStore = useProductsStore();
+const { data } = storeToRefs(productStore);
+const id = computed(() => data.value.length ? data.value.at(-1).id + 1 : 0);
 
 const product = {
   title: (value) => {

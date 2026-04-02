@@ -1,16 +1,15 @@
 <script setup>
 import { useRouter } from 'vue-router';
 import NewProductForm from '../components/forms/NewProductForm.vue';
+import { useProductsStore } from '../stores/products';
 
-const prop = defineProps({
-  idProduct: String,
-});
-const emit = defineEmits(['newProduct']);
+
+const productStore = useProductsStore();
 
 const router = useRouter();
 
 function newProduct(product){
-    emit('newProduct', product);
+    productStore.addProduct(product);
     router.push('/');
 }
 </script>
@@ -18,8 +17,7 @@ function newProduct(product){
 <template>
     <div class="box">
         <div class="card">
-            <NewProductForm :lastId="Number(idProduct)"
-                  @submited="(e) => newProduct(e)"/>
+            <NewProductForm @submited="newProduct($event)"/>
         </div>
     </div>
 </template>

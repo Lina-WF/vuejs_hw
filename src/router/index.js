@@ -5,6 +5,8 @@ import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
 import Login from '../views/Login.vue'
 import NewProduct from '../views/NewProduct.vue'
+import { useFilterStore } from '../stores/filter'
+import { useUserStore } from '../stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -36,10 +38,9 @@ const router = createRouter({
       component: Login,
     },
     {
-      path: '/newProduct/:idProduct',
+      path: '/newProduct',
       name: 'newProduct',
       component: NewProduct,
-      props: true,
     },
 //    {
 //      path: '/:pathMatch(.*)*',
@@ -53,10 +54,15 @@ const router = createRouter({
 })
 
 router.beforeEach((to, from) => {
-  if (to.name === 'newProduct' && localStorage.auth != "admin"){
+  const filterStore = useFilterStore();
+  filterStore.clearFilter();
+
+  const userStore = useUserStore();
+  
+  if (to.name === 'newProduct' && !userStore.user.loggedIn){
     return {name: 'login'};
   }
-  else if (to.name === 'login' && localStorage.auth === "admin"){
+  else if (to.name === 'login' && userStore.user.loggedIn){
     return {name: 'home'};
   }
   else{

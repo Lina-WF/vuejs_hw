@@ -2,14 +2,16 @@
 import { useRouter } from 'vue-router';
 import LoginForm from '../components/forms/LoginForm.vue';
 import { ref } from 'vue';
+import { useUserStore } from '../stores/user';
 
 const error = ref(false);
 const router = useRouter();
+const userStore = useUserStore();
 
 function checkAuth(data){
-    if (data.login === "admin" && data.password === "123"){
-        localStorage.auth = "admin";
-        router.go(0);
+    if (data.login === userStore.user.login && data.password === userStore.user.password){
+        userStore.logIn();
+        router.push("/newProduct")
     }
     else {
         error.value = true;
@@ -20,7 +22,7 @@ function checkAuth(data){
 <template>
     <div class="box">
         <div class="card">
-            <LoginForm class="glass" @submited="(e) => checkAuth(e)" />
+            <LoginForm class="glass" @submited="checkAuth($event)" />
             <div v-if="error">
                 <span role="alert">Неверный логин или пароль</span>
             </div>
