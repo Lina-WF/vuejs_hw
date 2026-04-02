@@ -1,5 +1,5 @@
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { useFilterStore } from '../../stores/filter';
 import { storeToRefs } from 'pinia';
 
@@ -7,25 +7,25 @@ import { storeToRefs } from 'pinia';
 const filterStore = useFilterStore();
 const { filter } = storeToRefs(filterStore);
 
-const searchTerm = ref(filter.value.searchTerm);
-const priceFrom = ref(filter.value.priceFrom);
-const priceTo = ref(filter.value.priceTo);
+const searchTerm = computed(() => filter.value.searchTerm);
+const priceFrom = computed(() => filter.value.priceFrom);
+const priceTo = computed(() => filter.value.priceTo);
 </script>
 
 <template>
 <div class="input">
     <input type="text" 
         placeholder="Название"
-        v-model="searchTerm" 
+        :value="searchTerm" 
         @input="filterStore.setFilter('searchTerm', $event.target.value)" />
     <label>от 
         <input type="number" 
-            v-model="priceFrom"
+            :value="priceFrom"
             @input="filterStore.setFilter('priceFrom', $event.target.value)" />
     </label>
     <label>до 
         <input type="number" 
-            v-model="priceTo" 
+            :value="priceTo" 
             @input="filterStore.setFilter('priceTo', $event.target.value)"/>$
     </label>
 </div>
