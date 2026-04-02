@@ -16,7 +16,7 @@ const priceTo = computed(() => filter.value.priceTo);
 <div class="input">
     <input type="text" 
         placeholder="Название"
-        :value="searchTerm" 
+        :valuel="searchTerm" 
         @input="filterStore.setFilter('searchTerm', $event.target.value)" />
     <label>от 
         <input type="number" 
