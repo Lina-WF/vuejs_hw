@@ -1,23 +1,24 @@
 <script setup>
 import SearchBar from './SearchBar.vue'
 import Navigation from './Navigation.vue';
+import { useFilterStore } from '../../stores/filter';
 
-defineEmits(['search', 'clearFilter']);
+const filterStore = useFilterStore();
 </script>
  
 <template>
 <div class="header">
     <div class="logo">
-        <RouterLink :to="{name:'home'}" @click="$emit('clearFilter')">Logo</RouterLink>
+        <RouterLink :to="{name:'home'}" @click="filterStore.clearFilter()">Logo</RouterLink>
     </div>
-    <SearchBar @search="(e) => $emit('search', e)" />
+    <SearchBar />
     <div class="nav-web">
-        <Navigation @clearFilter="$emit('clearFilter')"/>
+        <Navigation />
     </div>
     <div class="nav-mobile">
         <a class="menu">Меню</a>
         <div class="dropdown-content">
-            <Navigation  @clearFilter="$emit('clearFilter')"/>
+            <Navigation />
         </div>
     </div>
 </div>

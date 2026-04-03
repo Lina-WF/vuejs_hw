@@ -1,23 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 import AddInCartButton from './AddInCartButton.vue';
+import { useCartStore } from '../stores/cart';
 
 const prop = defineProps({
-  product: {
-    id: Number,
-    title: String,
-    price: Number,
-    description: String,
-    category: String,
-    image: String,
-    rating: {
-        rate: Number,
-        count: Number,
-    },
-  },
-  countInCart: {type: Number},
+  product: {type: Object},
 });
-defineEmits(['inc', 'delete']);
+
+const cartStore = useCartStore();
+const countInCart = computed(() => cartStore.checkInCart(prop.product.id));
 
 const title = computed(() => prop.product.title.length < 30 ? 
                           prop.product.title : prop.product.title.slice(0, 30) + "...");
@@ -54,8 +45,8 @@ const description = computed(() => prop.product.description.length < 90 ?
     </RouterLink>
     <AddInCartButton 
       :countInCart="countInCart" 
-      @inc="() => $emit('inc')" 
-      @dec="() => $emit('dec')"
+      @inc="() => cartStore.incCart(product.id)" 
+      @dec="() => cartStore.decCart(product.id)"
       />
   </div>
 </template>

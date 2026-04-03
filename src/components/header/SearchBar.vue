@@ -1,17 +1,15 @@
 <script setup>
-import { ref } from 'vue';
+import { computed } from 'vue';
+import { useFilterStore } from '../../stores/filter';
+import { storeToRefs } from 'pinia';
 
-const emit = defineEmits(['search']);
- 
-const searchTerm = ref("");
-const priceFrom = ref(0);
-const priceTo = ref(1000000);
 
-function search() {
-  emit('search', {'searchTerm': searchTerm, 
-                    'priceFrom': priceFrom, 
-                    'priceTo': priceTo});
-}
+const filterStore = useFilterStore();
+const { filter } = storeToRefs(filterStore);
+
+const searchTerm = computed(() => filter.value.searchTerm);
+const priceFrom = computed(() => filter.value.priceFrom);
+const priceTo = computed(() => filter.value.priceTo);
 </script>
 
 <template>
@@ -19,16 +17,16 @@ function search() {
     <input type="text" 
         placeholder="Название"
         v-model="searchTerm" 
-        @input="search" />
+        @input="filterStore.setFilter('searchTerm', $event.target.value)" />
     <label>от 
         <input type="number" 
             v-model="priceFrom"
-            @input="search" />
+            @input="filterStore.setFilter('priceFrom', $event.target.value)" />
     </label>
     <label>до 
         <input type="number" 
             v-model="priceTo" 
-            @input="search"/>$
+            @input="filterStore.setFilter('priceTo', $event.target.value)"/>$
     </label>
 </div>
 </template>

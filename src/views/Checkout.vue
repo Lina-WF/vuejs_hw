@@ -6,8 +6,7 @@ import BuyForm from '../components/forms/BuyForm.vue';
 <div class="box">
     <div class="card">
         <p>Для покупки заполните данные:</p>
-        <BuyForm :cart="cart"
-                @bought="() => $emit('bought')"/>
+        <BuyForm />
     </div>
 </div>
 </template>

@@ -2,18 +2,18 @@
 import { ref } from 'vue';
 import DeliveryForm from './DeliveryForm.vue';
 import CardForm from './CardForm.vue';
+import { useCartStore } from '../../stores/cart';
+import { storeToRefs } from 'pinia';
 
-const prop = defineProps({
-    cart: {type: Array}
-});
-const emit = defineEmits(['bought']);
+const cartStore = useCartStore();
+const { cart } = storeToRefs(cartStore);
 
 const deliveryRes = ref();
 const cardRes = ref();
 const response = ref("Ожидание ответа");
 
 async function postForm(delivery, card){
-    let data = JSON.stringify(Object.assign(delivery, card, prop.cart), null, 2);
+    let data = JSON.stringify(Object.assign(delivery, card, cart.value), null, 2);
     console.log(data);
     let res = await fetch('https://httpbin.org/post', {
         method: 'POST',
@@ -24,6 +24,7 @@ async function postForm(delivery, card){
         });
     if (res.ok) {
         response.value = "Оплата прошла успешно";
+        cartStore.clearCart();
     }
     else{
         response.value = "Что-то пошло не так";
@@ -34,17 +35,16 @@ function close(){
     cardRes.value = "";
     deliveryRes.value = "";
     response.value = ref("Ожидание ответа");
-    emit('bought');
 }
 </script>
  
 <template> 
 <DeliveryForm class="glass"
                 v-show="!deliveryRes"
-                @submited="(e) => deliveryRes = e" />
+                @submited="deliveryRes = $event" />
 <CardForm class="glass"
             v-show="deliveryRes && !cardRes"
-            @submited="(e) => {cardRes = e; postForm(deliveryRes, e)}" />
+            @submited="cardRes = $event; postForm(deliveryRes, $event)" />
 <div class="glass"
     :style="cardRes ? '' :  'display:none'" >
     <div class="big"><b>{{ response }}</b></div><br><br>
