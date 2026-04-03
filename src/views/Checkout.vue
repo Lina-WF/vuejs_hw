@@ -1,11 +1,5 @@
 <script setup>
-import BuyForm from '../components/forms/buyForm.vue';
-
-defineProps({
-  cart: { type: Array },
-});
-defineEmits(['bought']);
-
+import BuyForm from '../components/forms/BuyForm.vue';
 </script>
 
 <template>
