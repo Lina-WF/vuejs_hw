@@ -22,7 +22,7 @@ const post = {
 };
 
 function onSubmit(values) {
-  emit('submited', Object.assign({'authorId': userStore.user.id, 'title': values.title, 'text': values.text}));
+  emit('submited', {authorId: userStore.user.id, title: values.title, text: values.text});
 }
 </script>
 

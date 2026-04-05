@@ -33,7 +33,7 @@ const priceTo = computed(() => filter.value.priceTo);
 
 <style scoped>
 .input{
-    width: 49%;
+    width: 57.5%;
     margin: 1.5% 0;
     cursor: auto;    
     padding: 0.6em 0em;

@@ -16,7 +16,7 @@ export const useCartStore = defineStore('cart', () => {
             cart.value[cartId].countInCart++;
         }
         else {
-            cart.value.push({'id': Number(id), 'countInCart': 1});
+            cart.value.push({id: Number(id), countInCart: 1});
         }
     }
 

@@ -2,9 +2,9 @@
 import Card from '../components/Card.vue'
 import { useProductsStore } from '../stores/products';
 import { storeToRefs } from 'pinia';
-import { useUserStore } from '../stores/user';
 import { computed } from 'vue';
 import { useFilteredProductsStore } from '../stores/filteredProducts';
+import { useAuthStore } from '../stores/auth';
 
 const productStore = useProductsStore();
 const { data, isLoading } = storeToRefs(productStore);
@@ -12,13 +12,13 @@ const { data, isLoading } = storeToRefs(productStore);
 const filteredProductsStore = useFilteredProductsStore();
 const { filteredProducts } = storeToRefs(filteredProductsStore);
 
-const userStore = useUserStore();
-const auth = computed(() => userStore.user.loggedIn);
+const authStore = useAuthStore();
+const role = computed(() => authStore.role);
 </script>
 
 <template>
 <h1>Магазин</h1>
-  <RouterLink :to="{name: 'newProduct'}" v-if="auth">
+  <RouterLink :to="{name: 'newProduct'}" v-if="role==='admin'">
     <button style="width: 95%;">Добавить новый товар</button>
   </RouterLink>
   <div id="loading" v-if="isLoading">Загрузка...</div>
