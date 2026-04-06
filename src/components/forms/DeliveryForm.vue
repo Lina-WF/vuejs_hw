@@ -1,16 +1,21 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import type { deliveryData } from '@/types';
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 
-const emit = defineEmits(['submited']);
+
+
+const emit = defineEmits<{
+    (e: 'submited', deliveryData: deliveryData): void;
+}>();
 
 const delivery = {
-  fio: (value) => {
+  fio: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите ФИО';
   },
-  bday: (value) => {
+  bday: (value: string) => {
     if (value && value.length) {
         let overageDate = new Date(); 
         overageDate.setFullYear(overageDate.getFullYear() - 18);
@@ -22,25 +27,25 @@ const delivery = {
     }
     return 'Введите дату рождения';
   },
-  city: (value) => {
+  city: (value: string) => {
     if (value && value.length) {
       return true;
     }
     return 'Введите город';
   },
-  street: (value) => {
+  street: (value: string) => {
     if (value && value.length) {
       return true;
     }
     return 'Введите улицу';
   },
-  building: (value) => {
+  building: (value: string) => {
     if (value && value.length) {
       return true;
     }
     return 'Введите номер дома';
   },
-  apartment: (value) => {
+  apartment: (value: string) => {
     if (value && value.length) {
       return true;
     }
@@ -48,8 +53,8 @@ const delivery = {
   },
 };
 
-function onSubmit(values){
-    emit('submited', values)
+function onSubmit(values: GenericObject){
+    emit('submited', values as deliveryData);
 }
 </script>
 

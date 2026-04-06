@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import Post from '../components/Post.vue';
@@ -11,11 +11,11 @@ const POSTS = gql`
         posts {
             author {
                 name
+                avatar(size: S_128)
             }
             id
             text
             title
-            image
         }
     }
 `;

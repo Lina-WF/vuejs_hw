@@ -1,41 +1,51 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useProductsStore } from '../../stores/products';
+import type { product } from '@/types';
 
-const emit = defineEmits(['submited']);
+const emit = defineEmits<{
+    (e: 'submited', product: product): void;
+}>();
 
 const productStore = useProductsStore();
 const { data } = storeToRefs(productStore);
-const id = computed(() => data.value.length ? data.value.at(-1).id + 1 : 0);
+const id = computed(() => data.value.length ? data.value.at(-1)!.id + 1 : 0);
+
+type newProduct = {"id": number,
+                    "title": string,
+                    "price": number,
+                    "description": string,
+                    "category": string,
+                    "image":string};
 
 const product = {
-  title: (value) => {
+  title: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите название товара';
   },
-  price: (value) => {
+  price: (value: number) => {
     if (value) {
         return true;
     }
     return 'Введите цену';
   },
-  description: (value) => {
+  description: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите описание товара';
   },
-  category: (value) => {
+  category: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите категорию товара';
   },
-  image: (value) => {
+  image: (value: string) => {
     if (value && value.length) {
         return true;
     }
@@ -43,8 +53,8 @@ const product = {
   },
 };
 
-function onSubmit(values) {
-  const res = Object.assign(values, {rating: {rate: 0, count: 0}});
+function onSubmit(values: GenericObject) {
+  const res = Object.assign(values as newProduct, {rating: {rate: 0, count: 0}});
   emit('submited', res);
 }
 </script>

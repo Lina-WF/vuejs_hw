@@ -8,9 +8,12 @@ import NewProduct from '../views/NewProduct.vue'
 import Reviews from '../views/Reviews.vue'
 import NewPost from '../views/NewPost.vue'
 import Profile from '../views/Profile.vue'
+import FOF from '../views/FOF.vue'
 import { useFilterStore } from '../stores/filter'
 import { useAuthStore } from '../stores/auth'
 import { useUserStore } from '../stores/user'
+import { useProductsStore } from '../stores/products'
+import { storeToRefs } from 'pinia'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -25,6 +28,16 @@ const router = createRouter({
       name: 'product',
       component: Product,
       props: true,
+      beforeEnter: async (to, _from, next) => {
+        const productStore = useProductsStore();
+        await productStore.loadProducts();
+        const product = productStore.findProduct(Number(to.params.idProduct));
+        if (!product) {
+          next({ name: 'not-found' });
+        } else {
+          next();
+        }
+      }
     },
     {
       path: '/cart',
@@ -76,11 +89,11 @@ const router = createRouter({
         role: 'any',
       }
     },
-//    {
-//      path: '/:pathMatch(.*)*',
-//      name: 'not-found',
-//      component: Contact,
-//    },
+    {
+      path: '/:pathMatch(.*)*',
+      name: 'not-found',
+      component: FOF,
+    },
   ],
   scrollBehavior(to, from, savedPosition) {
     return { top: 0 }
@@ -97,9 +110,9 @@ router.beforeEach((to, from) => {
   if (to.meta.role && to.meta.role !== authStore.role && !(to.meta.role === 'any' && authStore.isAuthed)){
     return {name: 'login', query: {back: to.fullPath}};
   }
-  else if (authStore.exp <= date.setDate(date.getDate())){
+  else if (authStore.exp && authStore.exp <= date.setDate(date.getDate())){
     userStore.logOut();
-    return {name: 'login', query: {back: from.name}};
+    return {name: 'login', query: {back: from.name as string}};
   }
 
   return true;

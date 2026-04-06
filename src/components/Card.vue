@@ -1,11 +1,12 @@
-<script setup>
+<script setup lang="ts">
 import { computed } from 'vue'
 import AddInCartButton from './AddInCartButton.vue';
 import { useCartStore } from '../stores/cart';
+import type { product } from '@/types';
 
-const prop = defineProps({
-  product: {type: Object},
-});
+const prop = defineProps<{
+  product: product,
+}>();
 
 const cartStore = useCartStore();
 const countInCart = computed(() => cartStore.checkInCart(prop.product.id));

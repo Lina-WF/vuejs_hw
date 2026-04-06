@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import BuyForm from '../components/forms/BuyForm.vue';
 </script>
 

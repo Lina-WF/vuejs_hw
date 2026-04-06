@@ -13,16 +13,16 @@ export const useFilterStore = defineStore('filter', () => {
                     priceTo: 1000000};
     }
 
-    function setFilter(which, newFilter){
+    function setFilter(which: string, newFilter: string | number){
         switch (which){
             case 'searchTerm':
-                filter.value.searchTerm = newFilter;
+                filter.value.searchTerm = newFilter as string;
                 break;
             case 'priceFrom':
-                filter.value.priceFrom = newFilter;
+                filter.value.priceFrom = newFilter as number;
                 break;
             case 'priceTo':
-                filter.value.priceTo = newFilter;
+                filter.value.priceTo = newFilter as number;
                 break;
         }
     }

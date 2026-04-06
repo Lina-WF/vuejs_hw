@@ -1,9 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import gql from 'graphql-tag';
 import NewPostForm from '../components/forms/NewPostForm.vue';
 import { socket } from '../services/socket';
 import { useMutation } from '@vue/apollo-composable';
 import { useRouter } from 'vue-router';
+import type { newPost } from '@/types';
 
 const router = useRouter();
 
@@ -17,7 +18,7 @@ const ADDPOST = gql`
 
 const { mutate, onDone  } = useMutation(ADDPOST);
 
-function newPost(post){
+function newPost(post: newPost){
     mutate ({ 
         post: post 
     });

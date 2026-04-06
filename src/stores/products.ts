@@ -1,8 +1,9 @@
 import { defineStore } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
+import type { product } from '../types.js';
 
 export const useProductsStore = defineStore('products', () => {
-    const data = ref([]);
+    const data = ref<product[]>([]);
     const isLoading = ref(false);
 
     async function loadProducts() {
@@ -12,21 +13,21 @@ export const useProductsStore = defineStore('products', () => {
             .then((products) => {data.value = products; isLoading.value = false;});
     }
 
-    function checkProductInfo(info, searchTerm){
+    function checkProductInfo(info: string, searchTerm: string){
         const check = info.toLowerCase().includes(searchTerm.toLowerCase());
         return check;
     }
 
-    function checkProductPrice(price, from, to){
+    function checkProductPrice(price: number, from: number, to: number){
         const check = from <= price && price <= to;
         return check;
     }
 
-    function addProduct(product){
+    function addProduct(product: product){
         data.value.push(product);
     }
 
-    function findProduct(id){
+    function findProduct(id: number){
         return data.value.find(product => (product.id == id));
     }
 

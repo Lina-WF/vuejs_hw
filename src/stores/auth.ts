@@ -11,7 +11,7 @@ export const useAuthStore = defineStore('auth', () => {
 
   const decodedJwt = computed(() => {
     if (isAuthed.value) {
-      return jwtDecode(currentJWT.value);
+      return jwtDecode<{id: number; role: string; exp: number}>(currentJWT.value as string);
     } else {
       return null;
     }
@@ -21,7 +21,7 @@ export const useAuthStore = defineStore('auth', () => {
   const userId = computed(() => decodedJwt.value?.id);
   const exp = computed(() => decodedJwt.value?.exp);
 
-  function setJwt(jwt) {
+  function setJwt(jwt: string) {
     currentJWT.value = jwt;
     localStorage.setItem('jwt', jwt);
   }

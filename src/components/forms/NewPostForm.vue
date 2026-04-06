@@ -1,19 +1,22 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 import { useUserStore } from '../../stores/user';
+import type { newPost } from '@/types';
 
-const emit = defineEmits(['submited']);
+const emit = defineEmits<{
+    (e: 'submited', post: newPost): void;
+}>();
 
 const userStore = useUserStore();
 
 const post = {
-  title: (value) => {
+  title: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите заголовок';
   },
-  text: (value) => {
+  text: (value: string) => {
     if (value) {
         return true;
     }
@@ -21,7 +24,7 @@ const post = {
   },
 };
 
-function onSubmit(values) {
+function onSubmit(values: GenericObject) {
   emit('submited', {authorId: userStore.user.id, title: values.title, text: values.text});
 }
 </script>

@@ -1,16 +1,19 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import type { authData } from '@/types';
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 
-const emit = defineEmits(['submited']);
+const emit = defineEmits<{
+    (e: 'submited', authData: authData): void;
+}>();
 
 const login = {
-  login: (value) => {
+  login: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите логин';
   },
-  password: (value) => {
+  password: (value: string) => {
     if (value && value.length) {
         return true;
     }
@@ -18,8 +21,8 @@ const login = {
   },
 };
 
-function onSubmit(values){
-    emit('submited', values)
+function onSubmit(values: GenericObject){
+    emit('submited', values as authData)
 }
 </script>
 

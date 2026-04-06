@@ -1,19 +1,20 @@
-<script setup>
+<script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router';
 import LoginForm from '../components/forms/LoginForm.vue';
 import { ref } from 'vue';
 import { useUserStore } from '../stores/user';
+import type { authData } from '@/types';
 
 const error = ref(false);
 const router = useRouter();
 const route = useRoute();
 const userStore = useUserStore();
 
-function checkAuth(data){
+function checkAuth(data: authData){
     const auth = userStore.logIn(data.login, data.password);
     if (auth){
-        const redirectPath = route.query.back || '/';
-        router.push(redirectPath)
+        const redirectPath = route.query.back ? String(route.query.back) : '/';
+        router.push(redirectPath);
     }
     else {
         error.value = true;

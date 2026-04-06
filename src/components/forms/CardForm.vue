@@ -1,10 +1,15 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import type { cardData } from '@/types';
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 
-const emit = defineEmits(['submited']);
+
+
+const emit = defineEmits<{
+    (e: 'submited', cardData: cardData): void;
+}>();
 
 const card = {
-  cardNum: (value) => {
+  cardNum: (value: string) => {
     if (value && value.length) {
         let nums = value.split(" ").filter(num => Number(num) && num.length == 4);
         if (nums.length == 4) {
@@ -14,13 +19,13 @@ const card = {
     }
     return 'Введите номер карты';
   },
-  cardName: (value) => {
+  cardName: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите имя и фамилю';
   },
-  cardYear: (value) => {
+  cardYear: (value: string) => {
     if (value && value.length == 5) {
         let nums = value.split("/").filter(num => Number(num) && num.length == 2);
         if (nums.length == 2) {
@@ -30,7 +35,7 @@ const card = {
     }
     return 'Введите год и месяц';
   },
-  cardCode: (value) => {
+  cardCode: (value: string) => {
     if (value && value.length) {
         if (Number(value) && value.length == 3){
             return true;
@@ -39,7 +44,7 @@ const card = {
     }
     return 'Введите код';
   },
-  agreement: (value) => {
+  agreement: (value: string) => {
     if (value === "yes") {
         return true;
     }
@@ -47,8 +52,8 @@ const card = {
   },
 };
 
-function onSubmit(values){
-    emit('submited', values)
+function onSubmit(values: GenericObject){
+    emit('submited', values as cardData)
 }
 </script>
 
