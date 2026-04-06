@@ -21,7 +21,7 @@ const auth = computed(() => userStore.user.loggedIn);
   <RouterLink :to="{name: 'newProduct'}" v-if="auth">
     <button style="width: 95%;">Добавить новый товар</button>
   </RouterLink>
-  <div v-if="isLoading">Загрузка...</div>
+  <div id="loading" v-if="isLoading">Загрузка...</div>
   <div v-else-if="filteredProducts.length === 0">
     <div>
       <div class="big">Товары по запросу не найдены.</div>

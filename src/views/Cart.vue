@@ -19,9 +19,9 @@ const { productsInCart } = storeToRefs(cartStore);
     </div>
   </div>
   <div v-else>
-    Общая сумма: {{ cartStore.countSum().toFixed(2) }} $ 
+    <div id="totalSum">Общая сумма: {{ cartStore.countSum().toFixed(2) }} $ 
     <RouterLink :to="{name:'checkout'}"><button>Купить</button></RouterLink>
-    <button @click="cartStore.clearCart()">Очистить</button>
+    <button @click="cartStore.clearCart()">Очистить</button></div>
     <div class="box">
       <Card v-for="product in productsInCart" 
             :key="product.id" 

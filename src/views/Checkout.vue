@@ -1,5 +1,5 @@
 <script setup>
-import BuyForm from '../components/forms/buyForm.vue';
+import BuyForm from '../components/forms/BuyForm.vue';
 </script>
 
 <template>

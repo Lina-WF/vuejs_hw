@@ -6,7 +6,8 @@ export const useProductsStore = defineStore('products', () => {
     const isLoading = ref(false);
 
     async function loadProducts() {
-        return fetch('https://fakestoreapi.com/products')
+        // return fetch('https://fakestoreapi.com/products')
+        return fetch('/products.json')
             .then((res) => res.json())
             .then((products) => {data.value = products; isLoading.value = false;});
     }
