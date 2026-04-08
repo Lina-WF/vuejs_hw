@@ -7,6 +7,8 @@ import Login from '../views/Login.vue'
 import NewProduct from '../views/NewProduct.vue'
 import { useFilterStore } from '../stores/filter'
 import { useUserStore } from '../stores/user'
+import Reviews from '../views/Reviews.vue'
+import NewPost from '../views/NewPost.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -41,6 +43,16 @@ const router = createRouter({
       path: '/newProduct',
       name: 'newProduct',
       component: NewProduct,
+    },
+    {
+      path: '/reviews',
+      name: 'reviews',
+      component: Reviews,
+    },
+    {
+      path: '/newPost',
+      name: 'newPost',
+      component: NewPost,
     },
 //    {
 //      path: '/:pathMatch(.*)*',

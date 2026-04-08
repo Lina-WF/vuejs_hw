@@ -3,11 +3,14 @@ import { reactive } from 'vue';
 
 export const useUserStore = defineStore('user', () => {
     const saved = localStorage.getItem('user');
-    const user = reactive(saved ? JSON.parse(saved) : {role: 'admin',
-                                                    login: 'admin',
-                                                    password: '123',
-                                                    loggedIn: false
-                                                    });
+    const user = reactive(saved ? JSON.parse(saved) : {'id': 1,
+                                                    'role': 'admin',
+                                                    'login': 'admin',
+                                                    'password': '123',
+                                                    'loggedIn': false});
+    if (!user.id){
+        user.id = 1;
+    }
                                                     
 
     function logIn(){

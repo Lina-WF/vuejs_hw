@@ -12,6 +12,7 @@ const auth = computed(() => userStore.user.loggedIn);
 <template>
 <RouterLink :to="{name:'home'}" class="nav-item" @click="filterStore.clearFilter()">Главная</RouterLink>
 <RouterLink :to="{name:'cart'}" class="nav-item">Корзина</RouterLink>
+<RouterLink :to="{name:'reviews'}" class="nav-item">Посты</RouterLink>
 <RouterLink :to="{name:'login'}" class="nav-item" v-if="!auth">Вход</RouterLink>
 <a class="nav-item" v-else @click="userStore.logOut()">Выход</a>
 </template>
