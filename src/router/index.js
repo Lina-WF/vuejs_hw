@@ -5,10 +5,12 @@ import Cart from '../views/Cart.vue'
 import Checkout from '../views/Checkout.vue'
 import Login from '../views/Login.vue'
 import NewProduct from '../views/NewProduct.vue'
-import { useFilterStore } from '../stores/filter'
-import { useUserStore } from '../stores/user'
 import Reviews from '../views/Reviews.vue'
 import NewPost from '../views/NewPost.vue'
+import Profile from '../views/Profile.vue'
+import { useFilterStore } from '../stores/filter'
+import { useAuthStore } from '../stores/auth'
+import { useUserStore } from '../stores/user'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.VITE_BASE_URL),
@@ -38,11 +40,20 @@ const router = createRouter({
       path: '/login',
       name: 'login',
       component: Login,
+      beforeEnter() {
+        const authStore = useAuthStore();
+        if (authStore.isAuthed){
+          router.replace({name: 'home'});
+        }
+      }
     },
     {
       path: '/newProduct',
       name: 'newProduct',
       component: NewProduct,
+      meta: {
+        role: 'admin',
+      }
     },
     {
       path: '/reviews',
@@ -53,6 +64,17 @@ const router = createRouter({
       path: '/newPost',
       name: 'newPost',
       component: NewPost,
+      meta: {
+        role: 'any',
+      }
+    },
+    {
+      path: '/profile',
+      name: 'profile',
+      component: Profile,
+      meta: {
+        role: 'any',
+      }
     },
 //    {
 //      path: '/:pathMatch(.*)*',
@@ -69,17 +91,18 @@ router.beforeEach((to, from) => {
   const filterStore = useFilterStore();
   filterStore.clearFilter();
 
+  const authStore = useAuthStore();
   const userStore = useUserStore();
-  
-  if (to.name === 'newProduct' && !userStore.user.loggedIn){
-    return {name: 'login'};
+  const date = new Date();
+  if (to.meta.role && to.meta.role !== authStore.role && !(to.meta.role === 'any' && authStore.isAuthed)){
+    return {name: 'login', query: {back: to.fullPath}};
   }
-  else if (to.name === 'login' && userStore.user.loggedIn){
-    return {name: 'home'};
+  else if (authStore.exp <= date.setDate(date.getDate())){
+    userStore.logOut();
+    return {name: 'login', query: {back: from.name}};
   }
-  else{
-    return true;
-  }
+
+  return true;
 });
 
 export default router

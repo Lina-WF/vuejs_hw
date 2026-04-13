@@ -2,9 +2,9 @@
 import { useQuery } from '@vue/apollo-composable';
 import gql from 'graphql-tag';
 import Post from '../components/Post.vue';
-import { useUserStore } from '../stores/user';
 import { computed, onMounted, watch } from 'vue';
 import { socket } from '../services/socket';
+import { useAuthStore } from '../stores/auth';
 
 const POSTS = gql`
     query PostsQuery {
@@ -22,8 +22,8 @@ const POSTS = gql`
 
 const { result, loading, refetch } = useQuery(POSTS);
 
-const userStore = useUserStore();
-const auth = computed(() => userStore.user.loggedIn);
+const authStore = useAuthStore();
+const auth = computed(() => authStore.isAuthed);
 
 onMounted(() => {
   socket.on("update posts", () => {

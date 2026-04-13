@@ -44,7 +44,7 @@ const product = {
 };
 
 function onSubmit(values) {
-  const res = Object.assign(values, {"rating":{"rate":0,"count":0}});
+  const res = Object.assign(values, {rating: {rate: 0, count: 0}});
   emit('submited', res);
 }
 </script>

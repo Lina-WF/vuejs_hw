@@ -1,12 +1,13 @@
 <script setup>
+import { useAuthStore } from '../../stores/auth';
 import { useFilterStore } from '../../stores/filter';
-import { useUserStore } from '../../stores/user';
 import { computed } from 'vue';
+import { useUserStore } from '../../stores/user';
 
 const filterStore = useFilterStore();
 const userStore = useUserStore();
-
-const auth = computed(() => userStore.user.loggedIn);
+const authStore = useAuthStore();
+const auth = computed(() => authStore.isAuthed);
 </script>
 
 <template>
@@ -14,7 +15,7 @@ const auth = computed(() => userStore.user.loggedIn);
 <RouterLink :to="{name:'cart'}" class="nav-item">Корзина</RouterLink>
 <RouterLink :to="{name:'reviews'}" class="nav-item">Посты</RouterLink>
 <RouterLink :to="{name:'login'}" class="nav-item" v-if="!auth">Вход</RouterLink>
-<a class="nav-item" v-else @click="userStore.logOut()">Выход</a>
+<RouterLink :to="{name:'profile'}" class="nav-item" v-else>Профиль</RouterLink>
 </template>
 
 <style scoped>

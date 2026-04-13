@@ -36,13 +36,13 @@ const filterStore = useFilterStore();
     padding-left: 5%;
     padding-top: 2%;
     font-size: 1.3em;
-    width: 20%;
+    width: 7%;
 }
 .nav-web{
     text-align: right;
     padding-right: 5%;
     padding-top: 1%;
-    width: 20%;
+    width: 25%;
     
 }
 

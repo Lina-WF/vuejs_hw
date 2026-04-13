@@ -1,16 +1,16 @@
-import { defineStore, storeToRefs } from 'pinia'
+import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
 export const useFilterStore = defineStore('filter', () => {
 
-    const filter = ref({'searchTerm': "", 
-                    'priceFrom': 0, 
-                    'priceTo': 1000000});
+    const filter = ref({searchTerm: "", 
+                    priceFrom: 0, 
+                    priceTo: 1000000});
 
     function clearFilter(){
-        filter.value = {'searchTerm': "", 
-                    'priceFrom': 0, 
-                    'priceTo': 1000000};
+        filter.value = {searchTerm: "", 
+                    priceFrom: 0, 
+                    priceTo: 1000000};
     }
 
     function setFilter(which, newFilter){

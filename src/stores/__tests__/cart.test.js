@@ -5,7 +5,7 @@ describe('Cart Pinia Store', () => {
   describe('add product in cart', () => {
     it('should add new product with id 1', () => {
       const productId = 1;
-      const expected = {'id': 1, 'countInCart': 1};
+      const expected = {id: 1, countInCart: 1};
       const cartStore = useCartStore();
       
       cartStore.incCart(productId);
@@ -16,7 +16,7 @@ describe('Cart Pinia Store', () => {
 
     it('should add existing product with id 1', () => {
       const productId = 1;
-      const expected = {'id': 1, 'countInCart': 2};
+      const expected = {id: 1, countInCart: 2};
       const cartStore = useCartStore();
       
       cartStore.incCart(productId);
@@ -42,7 +42,7 @@ describe('Cart Pinia Store', () => {
 
     it('should decrease product with id 1', () => {
       const productId = 1;
-      const expected = {'id': 1, 'countInCart': 1};
+      const expected = {id: 1, countInCart: 1};
       const cartStore = useCartStore();
       
       cartStore.incCart(productId);
