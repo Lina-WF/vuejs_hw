@@ -1,11 +1,13 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@nuxt/test-utils/playwright';
 
-test('test', async ({ page }) => {
-  await page.goto('http://localhost:5173/');
+test('test', async ({ page, goto }) => {
+  await goto('/', { waitUntil: 'hydration' });
+  await page.waitForSelector('#__nuxt', { state: 'visible', timeout: 15000 });
 
   await page.getByRole('button', { name: 'В корзину' }).first().click();
   await page.getByRole('link', { name: 'Корзина' }).click();
 
+  await page.waitForSelector('#totalSum', { state: 'visible', timeout: 15000 });
   await expect(page.locator('#totalSum')).toContainText('Общая сумма: 109.95 $');
  
   await page.getByRole('button', { name: 'Добавить' }).click();
