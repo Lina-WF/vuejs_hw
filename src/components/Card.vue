@@ -2,10 +2,10 @@
 import { computed } from 'vue'
 import AddInCartButton from './AddInCartButton.vue';
 import { useCartStore } from '../stores/cart';
-import type { product } from '@/types';
+import type { Product } from '@/types';
 
 const prop = defineProps<{
-  product: product,
+  product: Product,
 }>();
 
 const cartStore = useCartStore();

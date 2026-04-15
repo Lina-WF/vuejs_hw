@@ -4,7 +4,7 @@ import NewPostForm from '../components/forms/NewPostForm.vue';
 import { socket } from '../services/socket';
 import { useMutation } from '@vue/apollo-composable';
 import { useRouter } from 'vue-router';
-import type { newPost } from '@/types';
+import type { NewPost } from '@/types';
 
 const router = useRouter();
 
@@ -18,7 +18,7 @@ const ADDPOST = gql`
 
 const { mutate, onDone  } = useMutation(ADDPOST);
 
-function newPost(post: newPost){
+function newPost(post: NewPost){
     mutate ({ 
         post: post 
     });

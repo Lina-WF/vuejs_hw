@@ -3,19 +3,18 @@ import { nextTick, onMounted, ref } from 'vue';
 import AddInCartButton from '../components/AddInCartButton.vue';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
-import type { product } from '@/types';
-import { useRouter } from 'vue-router';
+import type { Product } from '@/types';
 
 const prop = defineProps<{
   idProduct: string,
 }>();
 
-const idProduct = Number(prop.idProduct);
+const idProduct = +prop.idProduct;
 
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
-const productObj = ref<product | undefined>(productStore.findProduct(idProduct));
+const productObj = ref<Product | undefined>(productStore.findProduct(idProduct));
 </script>
 
 <template>

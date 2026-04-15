@@ -1,9 +1,9 @@
 import { defineStore } from 'pinia'
 import { onBeforeMount, ref } from 'vue'
-import type { product } from '../types.js';
+import type { Product } from '../types.js';
 
 export const useProductsStore = defineStore('products', () => {
-    const data = ref<product[]>([]);
+    const data = ref<Product[]>([]);
     const isLoading = ref(false);
 
     async function loadProducts() {
@@ -23,7 +23,7 @@ export const useProductsStore = defineStore('products', () => {
         return check;
     }
 
-    function addProduct(product: product){
+    function addProduct(product: Product){
         data.value.push(product);
     }
 

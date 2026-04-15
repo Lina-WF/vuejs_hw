@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import type { deliveryData } from '@/types';
+import type { DeliveryData } from '@/types';
 import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 
 
 
 const emit = defineEmits<{
-    (e: 'submited', deliveryData: deliveryData): void;
+    (e: 'submited', deliveryData: DeliveryData): void;
 }>();
 
 const delivery = {
@@ -53,14 +53,14 @@ const delivery = {
   },
 };
 
-function onSubmit(values: GenericObject){
-    emit('submited', values as deliveryData);
+function onSubmit(values: DeliveryData){
+    emit('submited', values);
 }
 </script>
 
 <template>
 <div>
-    <Form :validation-schema="delivery" method="POST" @submit="onSubmit">
+    <Form :validation-schema="delivery" method="POST" @submit="(values) => onSubmit(values as DeliveryData)">
         <div class="big"><b>Данные о доставке:</b></div><br><br>
         <div class="input">
             <label>ФИО 
