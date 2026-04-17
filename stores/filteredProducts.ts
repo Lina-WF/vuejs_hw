@@ -10,8 +10,7 @@ export const useFilteredProductsStore = defineStore('filtered products', () => {
     const filterStore = useFilterStore();
     const { filter } = storeToRefs(filterStore);
    
-    const filteredProducts = computed(() => {
-                                            if(!isLoading.value &&  Array.isArray(data.value) && data.value.length !== 0) {
+    const filteredProducts = computed(() => {if(!isLoading.value &&  Array.isArray(data.value) && data.value.length !== 0) {
                                                 return data.value.filter(product => 
                                                     (productStore.checkProductInfo(product.title, filter.value.searchTerm) ||
                                                     productStore.checkProductInfo(product.description, filter.value.searchTerm) ||

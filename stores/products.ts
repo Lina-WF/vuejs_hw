@@ -1,9 +1,8 @@
 import { defineStore } from 'pinia'
-import { onBeforeMount, ref } from 'vue'
-import type { product } from '../types';
+import type { Product } from '../types';
 
 export const useProductsStore = defineStore('products', () => {
-    const { data, pending: isLoading, error } = useFetch<product[]>('http://localhost:5173/products.json', {
+    const { data, pending: isLoading, error } = useFetch<Product[]>('http://localhost:5173/products.json', {
         transform: (res) => {
             return typeof res === 'string' ? JSON.parse(res) : res
         }
@@ -19,7 +18,7 @@ export const useProductsStore = defineStore('products', () => {
         return check;
     }
 
-    function addProduct(product: product){
+    function addProduct(product: Product){
         data.value?.push(product);
     }
 

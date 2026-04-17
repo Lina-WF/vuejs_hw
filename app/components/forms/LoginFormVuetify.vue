@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import type { SubmitEventPromise } from 'vuetify';
-import type { authData } from '../../../types';
+import type { AuthData } from '../../../types';
 
 const emit = defineEmits<{
-    (e: 'submited', authData: authData): void;
+    (e: 'submited', authData: AuthData): void;
 }>();
 
 const login = ref("");

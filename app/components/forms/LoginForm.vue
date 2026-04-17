@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { authData } from '../../../types';
-import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
+import type { AuthData } from '../../../types';
+import { Form, Field, ErrorMessage} from 'vee-validate';
 
 const emit = defineEmits<{
-    (e: 'submited', authData: authData): void;
+    (e: 'submited', authData: AuthData): void;
 }>();
 
 const login = {
@@ -21,14 +21,14 @@ const login = {
   },
 };
 
-function onSubmit(values: GenericObject){
-    emit('submited', values as authData)
+function onSubmit(values: AuthData){
+    emit('submited', values)
 }
 </script>
 
 <template>
 <div>
-    <Form :validation-schema="login" method="POST" @submit="onSubmit">
+    <Form :validation-schema="login" method="POST" @submit="(values) => onSubmit(values as AuthData)">
         <div class="big"><b>Вход</b></div><br><br>
         <div class="input">
             <label>Логин 

@@ -2,7 +2,7 @@
 import gql from 'graphql-tag';
 import NewPostForm from '../components/forms/NewPostForm.vue';
 import { socket } from '../composables/socket.client';
-import type { newPost } from '../../types';
+import type { NewPost } from '../../types';
 
 definePageMeta({
   role: 'any',
@@ -18,7 +18,7 @@ const ADDPOST = gql`
 
 const { mutate, onDone  } = useMutation(ADDPOST);
 
-function newPost(post: newPost){
+function newPost(post: NewPost){
     mutate ({ 
         post: post 
     });

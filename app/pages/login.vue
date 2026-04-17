@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { useUserStore } from '../../stores/user';
-import type { authData } from '../../types';
+import type { AuthData } from '../../types';
 import { useAuthStore } from '../../stores/auth';
 import LoginFormVuetify from '~/components/forms/LoginFormVuetify.vue';
 
@@ -18,7 +18,7 @@ const error = ref(false);
 const route = useRoute();
 const userStore = useUserStore();
 
-function checkAuth(data: authData){
+function checkAuth(data: AuthData){
     const auth = userStore.logIn(data.login, data.password);
     if (auth){
         const redirectPath = route.query.back ? String(route.query.back) : '/';

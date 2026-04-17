@@ -1,17 +1,17 @@
 <script setup lang="ts">
-import type { cardData } from '../../../types';
-import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
+import type { CardData } from '../../../types';
+import { Form, Field, ErrorMessage } from 'vee-validate';
 
 
 
 const emit = defineEmits<{
-    (e: 'submited', cardData: cardData): void;
+    (e: 'submited', cardData: CardData): void;
 }>();
 
 const card = {
   cardNum: (value: string) => {
     if (value && value.length) {
-        let nums = value.split(" ").filter(num => Number(num) && num.length == 4);
+        let nums = value.split(" ").filter(num => +num && num.length == 4);
         if (nums.length == 4) {
             return true;
         }
@@ -27,7 +27,7 @@ const card = {
   },
   cardYear: (value: string) => {
     if (value && value.length == 5) {
-        let nums = value.split("/").filter(num => Number(num) && num.length == 2);
+        let nums = value.split("/").filter(num => +num && num.length == 2);
         if (nums.length == 2) {
             return true;
         }
@@ -37,7 +37,7 @@ const card = {
   },
   cardCode: (value: string) => {
     if (value && value.length) {
-        if (Number(value) && value.length == 3){
+        if (+value && value.length == 3){
             return true;
         }
         return 'Введите валидный код';
@@ -52,14 +52,14 @@ const card = {
   },
 };
 
-function onSubmit(values: GenericObject){
-    emit('submited', values as cardData)
+function onSubmit(values: CardData){
+    emit('submited', values)
 }
 </script>
 
 <template>
 <div>
-    <Form :validation-schema="card" method="POST" @submit="onSubmit">
+    <Form :validation-schema="card" method="POST" @submit="(values) => onSubmit(values as CardData)">
         <div class="big"><b>Данные карты:</b></div><br><br>
         <div class="input">
             <label>Номер карты 

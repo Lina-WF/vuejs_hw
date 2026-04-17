@@ -16,16 +16,16 @@ const priceTo = computed(() => filter.value.priceTo);
     <input type="text" 
         placeholder="Название"
         v-model="searchTerm" 
-        @input="filterStore.setFilter('searchTerm', ($event.target as HTMLInputElement).value)" />
+        @input="filterStore.setFilter({which: 'searchTerm', filter: ($event.target as HTMLInputElement).value})" />
     <label>от 
         <input type="number" 
             v-model="priceFrom"
-            @input="filterStore.setFilter('priceFrom', ($event.target as HTMLInputElement).value)" />
+            @input="filterStore.setFilter({which: 'priceFrom', filter: +($event.target as HTMLInputElement).value})" />
     </label>
     <label>до 
         <input type="number" 
             v-model="priceTo" 
-            @input="filterStore.setFilter('priceTo', ($event.target as HTMLInputElement).value)"/>$
+            @input="filterStore.setFilter({which: 'priceTo', filter: +($event.target as HTMLInputElement).value})"/>$
     </label>
 </div>
 </template>

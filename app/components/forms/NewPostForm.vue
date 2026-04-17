@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 import { useUserStore } from '../../../stores/user';
-import type { newPost } from '../../../types';
+import type { NewPost } from '../../../types';
 
 const emit = defineEmits<{
-    (e: 'submited', post: newPost): void;
+    (e: 'submited', post: NewPost): void;
 }>();
 
 const userStore = useUserStore();

@@ -3,15 +3,15 @@ import { ref } from 'vue';
 import AddInCartButton from '../../components/AddInCartButton.vue';
 import { useProductsStore } from '../../../stores/products';
 import { useCartStore } from '../../../stores/cart';
-import type { product } from '../../../types';
+import type { Product } from '../../../types';
 
 const route = useRoute();
-const idProduct = Number(route.params.idProduct as string);
+const idProduct = computed(() => +(route.params.idProduct as string));
 
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
-const productObj = ref<product | undefined>(productStore.findProduct(idProduct));
+const productObj = ref<Product | undefined>(productStore.findProduct(idProduct.value));
 </script>
 
 <template>

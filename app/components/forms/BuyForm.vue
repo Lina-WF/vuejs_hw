@@ -3,7 +3,7 @@ import { ref } from 'vue';
 import DeliveryForm from './DeliveryForm.vue';
 import CardForm from './CardForm.vue';
 import { useCartStore } from '../../../stores/cart';
-import type { cardData, deliveryData } from '../../../types';
+import type { CardData, DeliveryData } from '../../../types';
 
 const cartStore = useCartStore();
 const { cart } = storeToRefs(cartStore);
@@ -12,7 +12,7 @@ const deliveryRes = ref();
 const cardRes = ref();
 const response = ref("Ожидание ответа");
 
-async function postForm(delivery: deliveryData, card: cardData){
+async function postForm(delivery: DeliveryData, card: CardData){
     let data = JSON.stringify(Object.assign(delivery, card, cart.value), null, 2);
     console.log(data);
     let res = await fetch('https://httpbin.org/post', {

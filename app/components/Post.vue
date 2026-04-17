@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { post } from '../../types';
+import type { Post } from '../../types';
 
 
 const prop = defineProps<{
-  post: post,
+  post: Post,
 }>();
 
 </script>
