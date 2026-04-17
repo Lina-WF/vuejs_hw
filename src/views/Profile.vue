@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import { computed, ref } from 'vue';
 import { useUserStore } from '../stores/user';
 import gql from 'graphql-tag';
@@ -18,8 +18,7 @@ const USER = gql`
     }
 `;
 
-
-const { result, error } = useQuery(USER, computed(() => ({
+const { result, loading } = useQuery(USER, computed(() => ({
                                                     id: userId
                                                 })));
 </script>
@@ -27,7 +26,8 @@ const { result, error } = useQuery(USER, computed(() => ({
 <template>
 <div class="box">
     <div class="card">
-        <div class="box">
+        <div id="loading" v-if="loading">Загрузка...</div>
+        <div class="box" v-else>
             <div class="img">
                 <img :src="result.user.avatar" :alt="'Аватарка ' + result.user.name"/>
             </div>
@@ -38,7 +38,7 @@ const { result, error } = useQuery(USER, computed(() => ({
                     </b>
                 </p>
                 <p>
-                    Логин: {{ userStore.user.login }}
+                    Логин: {{ userStore.user?.login }}
                 </p>
                 <p>
                     Email: {{ result.user.email }}

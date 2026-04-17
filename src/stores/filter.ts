@@ -1,3 +1,4 @@
+import type { Filter } from '@/types';
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
 
@@ -13,16 +14,16 @@ export const useFilterStore = defineStore('filter', () => {
                     priceTo: 1000000};
     }
 
-    function setFilter(which, newFilter){
-        switch (which){
+    function setFilter(newFilter: Filter){
+        switch (newFilter.which){
             case 'searchTerm':
-                filter.value.searchTerm = newFilter;
+                filter.value.searchTerm = newFilter.filter;
                 break;
             case 'priceFrom':
-                filter.value.priceFrom = newFilter;
+                filter.value.priceFrom = newFilter.filter;
                 break;
             case 'priceTo':
-                filter.value.priceTo = newFilter;
+                filter.value.priceTo = newFilter.filter;
                 break;
         }
     }

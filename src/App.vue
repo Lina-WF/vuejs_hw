@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import ShopHeader from './components/header/ShopHeader.vue'
 import Footer from './components/Footer.vue'
 </script>

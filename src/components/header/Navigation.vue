@@ -1,11 +1,9 @@
-<script setup>
+<script setup lang="ts">
 import { useAuthStore } from '../../stores/auth';
 import { useFilterStore } from '../../stores/filter';
 import { computed } from 'vue';
-import { useUserStore } from '../../stores/user';
 
 const filterStore = useFilterStore();
-const userStore = useUserStore();
 const authStore = useAuthStore();
 const auth = computed(() => authStore.isAuthed);
 </script>

@@ -1,17 +1,20 @@
-<script setup>
-import { ref } from 'vue';
+<script setup lang="ts">
+import { nextTick, onMounted, ref } from 'vue';
 import AddInCartButton from '../components/AddInCartButton.vue';
 import { useProductsStore } from '../stores/products';
 import { useCartStore } from '../stores/cart';
+import type { Product } from '@/types';
 
-const prop = defineProps({
-  idProduct: String,
-});
+const prop = defineProps<{
+  idProduct: string,
+}>();
+
+const idProduct = +prop.idProduct;
 
 const productStore = useProductsStore();
 const cartStore = useCartStore();
 
-const productObj = ref(productStore.findProduct(prop.idProduct));
+const productObj = ref<Product | undefined>(productStore.findProduct(idProduct));
 </script>
 
 <template>
@@ -19,28 +22,28 @@ const productObj = ref(productStore.findProduct(prop.idProduct));
     <div class="card">
         <div class="box">
             <div class="img">
-                <img :src="productObj.image" :alt="'Изображение ' + productObj.title"/>
+                <img :src="productObj!.image" :alt="'Изображение ' + productObj!.title"/>
             </div>
             <div class="info">
                 <p >
                     <b>
-                    {{ productObj.title }}
+                    {{ productObj!.title }}
                     </b>
                 </p>
                 <p class="big">
-                    <b>{{ productObj.price }} $</b>
+                    <b>{{ productObj!.price }} $</b>
                 </p>
                 <p>
-                    ★ Рейтинг {{ productObj.rating.rate }} 
-                    <small>{{ productObj.rating.count }} оценок</small>
+                    ★ Рейтинг {{ productObj!.rating.rate }} 
+                    <small>{{ productObj!.rating.count }} оценок</small>
                 </p>
                 
                 <p>
-                    {{ productObj.description }}
+                    {{ productObj!.description }}
                 </p>
                 <p>
-                    <small :style="productObj.category === 'jewelery' ? 'margin-left: 2px' : '' ">
-                    {{ productObj.category }}
+                    <small :style="productObj!.category === 'jewelery' ? 'margin-left: 2px' : '' ">
+                    {{ productObj!.category }}
                     </small>
                 </p>
                 <AddInCartButton 

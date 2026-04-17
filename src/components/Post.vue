@@ -1,15 +1,17 @@
-<script setup>
+<script setup lang="ts">
+import type { Post } from '@/types';
 
-const prop = defineProps({
-  post: {type: Object},
-});
+
+const prop = defineProps<{
+  post: Post,
+}>();
 
 </script>
 
 <template>
     <div class="card">
         <div class="info">
-        <div class="user"><img :src="post.image" :alt="'Аватарка ' + post.author.name"/> <p>{{ post.author.name }}</p></div>  
+        <div class="user"><img :src="post.author.avatar" :alt="'Аватарка ' + post.author.name"/> <p>{{ post.author.name }}</p></div>  
         <p class="big">
             <b>{{ post.title }}</b>
         </p>

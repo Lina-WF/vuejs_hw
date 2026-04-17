@@ -8,7 +8,7 @@ export const useUserStore = defineStore('user', () => {
     const listOfUsers = [{id: 1, login: 'admin', password: '123'}, {id: 2, login: 'user', password: '456'}]
     const authStore = useAuthStore();                        
 
-    function logIn(login, password){
+    function logIn(login: string, password: string){
         const authUser = listOfUsers.find((user) => user.login === login && user.password === password);
         if (authUser){
             user.value = authUser;

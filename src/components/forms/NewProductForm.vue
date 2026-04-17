@@ -1,41 +1,44 @@
-<script setup>
-import { Form, Field, ErrorMessage } from 'vee-validate';
+<script setup lang="ts">
+import { Form, Field, ErrorMessage, type GenericObject } from 'vee-validate';
 import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useProductsStore } from '../../stores/products';
+import type { NewProduct, Product } from '@/types';
 
-const emit = defineEmits(['submited']);
+const emit = defineEmits<{
+    (e: 'submited', product: Product): void;
+}>();
 
 const productStore = useProductsStore();
 const { data } = storeToRefs(productStore);
-const id = computed(() => data.value.length ? data.value.at(-1).id + 1 : 0);
+const id = computed(() => data.value.length ? data.value.at(-1)!.id + 1 : 0);
 
 const product = {
-  title: (value) => {
+  title: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите название товара';
   },
-  price: (value) => {
+  price: (value: number) => {
     if (value) {
         return true;
     }
     return 'Введите цену';
   },
-  description: (value) => {
+  description: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите описание товара';
   },
-  category: (value) => {
+  category: (value: string) => {
     if (value && value.length) {
         return true;
     }
     return 'Введите категорию товара';
   },
-  image: (value) => {
+  image: (value: string) => {
     if (value && value.length) {
         return true;
     }
@@ -43,15 +46,15 @@ const product = {
   },
 };
 
-function onSubmit(values) {
-  const res = Object.assign(values, {rating: {rate: 0, count: 0}});
+function onSubmit(values: NewProduct) {
+  const res = Object.assign(values as NewProduct, {rating: {rate: 0, count: 0}});
   emit('submited', res);
 }
 </script>
 
 <template>
 <div class="glass">
-    <Form :validation-schema="product" method="POST" @submit="onSubmit">
+    <Form :validation-schema="product" method="POST" @submit="(values) => onSubmit(values as NewProduct)">
         <div class="big"><b>Новый товар:</b></div><br><br>
         <Field type="hidden" name="id" v-model="id" />
         <div class="input">

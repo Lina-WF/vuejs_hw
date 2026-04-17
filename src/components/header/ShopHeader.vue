@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import SearchBar from './SearchBar.vue'
 import Navigation from './Navigation.vue';
 import { useFilterStore } from '../../stores/filter';
@@ -62,13 +62,16 @@ const filterStore = useFilterStore();
     width: 15%;
     margin: auto;
     padding: 3% 2%;
+    position: relative;
 }
 
 .dropdown-content {
     display: none;
     position: absolute;
-    right: 1.7%;
+    top: 100%;
+    right: 0;
     min-width: 100px;
+    width: 100%;
     z-index: 1;
     text-align: center;
     background-color: #4e4153;
@@ -85,10 +88,11 @@ const filterStore = useFilterStore();
     border-radius: 8px;
 }
 .nav-mobile:hover .dropdown-content {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
-@media (max-width: 785px) {
+@media (max-width: 1030px) {
     .nav-web{
         display: none;
     }

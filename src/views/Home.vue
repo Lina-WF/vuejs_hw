@@ -1,4 +1,4 @@
-<script setup>
+<script setup lang="ts">
 import Card from '../components/Card.vue'
 import { useProductsStore } from '../stores/products';
 import { storeToRefs } from 'pinia';

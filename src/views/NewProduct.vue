@@ -1,14 +1,14 @@
-<script setup>
+<script setup lang="ts">
 import { useRouter } from 'vue-router';
 import NewProductForm from '../components/forms/NewProductForm.vue';
 import { useProductsStore } from '../stores/products';
-
+import type { Product } from '@/types';
 
 const productStore = useProductsStore();
 
 const router = useRouter();
 
-function newProduct(product){
+function newProduct(product: Product){
     productStore.addProduct(product);
     router.push('/');
 }

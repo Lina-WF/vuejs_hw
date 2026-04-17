@@ -1,9 +1,12 @@
-<script setup>
+<script setup lang="ts">
 
-const prop = defineProps({
-    countInCart: {type: Number},
-});
-defineEmits(['inc', 'dec']);
+const prop = defineProps<{
+    countInCart: number,
+}>();
+defineEmits<{
+    (e: 'inc'): void;
+    (e: 'dec'): void;
+}>();
 </script>
 
 <template>
